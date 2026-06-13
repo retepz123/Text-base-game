@@ -1,4 +1,4 @@
-print ('Welcome to Life Simulator')
+print ('==== Welcome to Life Simulator ====')
 
 startGame  = input('Want to play the game? Yes or No  ')
 
@@ -13,7 +13,7 @@ else:
   exit()
 
 name = input('Write your name here  ')
-age = input('age: ')
+age = int(input('age: '))
 money = 500
 
 print (f'Hello, {name}!')
@@ -33,25 +33,49 @@ choice = input('Choose an option  ')
 if choice == '1':
   money -= 10
   print ('\n$10 fare bus')
+  print('1. Mall')
+  print('\n 2. Strip Club')
   
-  print('choose your destination')
+  places = input('Select your destination')
+  
+  if places == '2':
+     print('You have entered the Strip Club, you spent your money for pleasures')
+    
+  elif age < 18:
+     print('You are not enough in legal age, you come back when you are 18')
+    
+  places = input('Select your destination')
+  
+  
+    
   
   #choice for bike
 elif choice == '3':
-  print('Option to do it')
-  print('1. Go to College and Study')
-  print('2. Apply for work')
+    print('Option to do it')
+    print('1. Go to College and Study')
+    print('2. Apply for work')
   
   #if choose the study college
-  bike = input('Choose where to go:  ')
+    bike = input('Choose where to go:  ')
   
-  if bike == '1':
-    print('You are arriving in the University')
-    print('You are now studying...')
-    print("You've gained knowledge you are ready for work")
+    if bike == '1':
+        print('You are arriving in the University')
+        print('You are now studying...')
+        print("You've gained knowledge you are ready for work")
     
-  else:
-    print('nice')
+    #career options
+    if bike == '2':
+      money += 20
+      print('You have arrived in the Food Delivery Company')
+      print('\nYou have been hired for the food delivery')
+      print('You have earned $20')
+      print(f'Your money is now ${money}')
+
+elif choice == '2':
+  print("You have crossed the road ")
   
+  #You have crossed the road
+  #logic here
+
 else:
   print('End of the game')
