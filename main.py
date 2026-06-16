@@ -1,81 +1,38 @@
-print ('==== Welcome to Life Simulator ====')
+import os
 
-startGame  = input('Want to play the game? Yes or No  ')
+name = input('Write your name\n')
 
-if startGame == 'Yes':
-  print('Enjoy the Game')
-  
-elif startGame == 'No':
-  print ('Play it when you have the guts')
-  exit()
-else:
-  print ('Invalid Choice')
-  exit()
+def prompt():
+    print("Welcome to our World")
+    input("Press enter to continue....")
 
-name = input('Write your name here  ')
-age = int(input('age: '))
-money = 500
 
-print (f'Hello, {name}!')
-print (f'Age: {age}')
-print (f'Money: {money}')
+def clear():
+    if os.name == "nt":
+        os.system("cls")
+    else:
+        os.system("clear")
 
-# Main game
-print ('\nWelcome to Life Simulator, a text-based adventure where every decision shapes your future.')
-print ('1. Take the Bus')
-print ('2. Walk Straight')
-print ('3. Take the Bike')
-print ('4. Exit')
 
-choice = input('Choose an option  ')
+places = {
+    'House': {'North': 'University', 'South': 'Mall', 'East': 'Company'},
+    'Mall': {'North': 'House', 'South': 'Park'},
+    'University': {'North': 'Professional Work'},
+    'Professional Work': {'South': 'House'}
+}
 
-# if you choose the bus logic
-if choice == '1':
-  money -= 10
-  print ('\n$10 fare bus')
-  print('1. Mall')
-  print('\n 2. Strip Club')
-  
-  places = input('Select your destination')
-  
-  if places == '2':
-     print('You have entered the Strip Club, you spent your money for pleasures')
+current_place = 'House'
+money = 200
+
+clear()
+prompt()
+
+
+clear()
     
-  elif age < 18:
-     print('You are not enough in legal age, you come back when you are 18')
-    
-  places = input('Select your destination')
-  
-  
-    
-  
-  #choice for bike
-elif choice == '3':
-    print('Option to do it')
-    print('1. Go to College and Study')
-    print('2. Apply for work')
-  
-  #if choose the study college
-    bike = input('Choose where to go:  ')
-  
-    if bike == '1':
-        print('You are arriving in the University')
-        print('You are now studying...')
-        print("You've gained knowledge you are ready for work")
-    
-    #career options
-    if bike == '2':
-      money += 20
-      print('You have arrived in the Food Delivery Company')
-      print('\nYou have been hired for the food delivery')
-      print('You have earned $20')
-      print(f'Your money is now ${money}')
+print(f"Hello, {name},")
+print(f"You are in the {current_place}")
+print(f"Money: {money}\n\nFrom here you can choice your next move. you cann choose 'Mall', 'Univeristy' or to have a part-time job" )
 
-elif choice == '2':
-  print("You have crossed the road ")
-  
-  #You have crossed the road
-  #logic here
 
-else:
-  print('End of the game')
+
