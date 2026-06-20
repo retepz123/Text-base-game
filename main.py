@@ -18,11 +18,10 @@ def clear():
     else:
         os.system("clear")
 
-
 places = {
     'House': {'South': 'Mall', 'North': 'University', 'East': 'FastFood'},
     'Mall': {
-        'North': 'House'
+        'North': 'House', 'South': 'Ammusement Park'
     },
     'University': {
         'South': 'House'
@@ -32,12 +31,7 @@ places = {
     }
 }
 
-items = {
-    '1': 'Clothes - $10', '2': 'Caps - $5', '3': 'Shoes - $12'
-}
-
 current_place = 'House'
-money = 200
 
 clear()
 prompt()
@@ -52,7 +46,10 @@ print(f'You probably wondering what you gonna do first, so your current place no
 
 while True:
     
+    
     directions = places[current_place]
+    
+    print(f'\nWelcome to your {current_place}')
     
     for direction in directions:
         print(f"{direction} - {directions[direction]}")
@@ -68,20 +65,45 @@ while True:
         
         #from House to Mall or Mall to House
     if current_place == 'Mall':
-        money -= 10 #cost of the transportation
-        print(f'You have cost $10 for the bus\ncurrent Money: {money}\n')
+        player['money'] -= 10 #cost of the transportation
+        print(f'You have cost $10 for the bus\ncurrent Money: {player['money']}\n')
         
     elif current_place == 'House':
-         money -= 10 #cost of the transportation
-         print(f'You have cost $10 for the bus\ncurrent Money: {money}\n')
+         player['money'] -= 10 #cost of the transportation
+         print(f'You have cost $10 for the bus\ncurrent Money: {player['money']}\n')
         
     else:
         print('Invalid keywords')
         
-    print({'-' * 27})    
-    print(f'Welcome to the {current_place}')
-    print('There are things a lot to buy here.')
-    
-    
-    
-    
+    def mall():
+        while True:
+            print({'-' * 27})    
+            print(f'Welcome to the {current_place}')
+            print('There are things a lot to buy here.\n')
+            print('1. Clothes - $30')
+            print('2. Shoes - $45')
+            print('3. Caps - $22')
+            print('4. Winter Jacket - $70')
+            print('5. Leave the Mall')
+        
+            choice = input('\n\nWhat do you want to buy?\n\n')
+        
+            if choice == '1':
+                player['money'] -= 30
+                print("You've purchased the clothes")
+            elif choice == '2':
+              player['money'] -= 45
+              print("You've purchased the branded Shoes")
+            elif choice == '3':
+              player['money'] -= 22
+              print("You've purchased the Basketball Cap")
+            elif choice == '4':
+                 player['money'] -= 70
+                 print("You've purchased the Winter Jacket")
+            elif choice == '5':
+                break
+            
+    if current_place == 'Mall':
+        mall()
+        
+    print(f"leaving the Mall you current money is ${player['money']}")
