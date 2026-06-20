@@ -1,9 +1,14 @@
 import os
 
-name = input('Write your name\n')
+player = {
+    'name': '',
+    'money': 250,
+}
+
+player['name'] = input('Write your name\n')
 
 def prompt():
-    print("Welcome to our World")
+    print("Welcome to our World\nLife Simulator is a text-based adventure game where the player starts as a young person with limited money and must make choices that affect their future\n\n")
     input("Press enter to continue....")
 
 
@@ -15,10 +20,20 @@ def clear():
 
 
 places = {
-    'House': {'North': 'University', 'South': 'Mall', 'East': 'Company'},
-    'Mall': {'North': 'House', 'South': 'Park'},
-    'University': {'North': 'Professional Work'},
-    'Professional Work': {'South': 'House'}
+    'House': {'South': 'Mall', 'North': 'University', 'East': 'FastFood'},
+    'Mall': {
+        'North': 'House'
+    },
+    'University': {
+        'South': 'House'
+    },
+    'FastFood': {
+        'West': 'House'
+    }
+}
+
+items = {
+    '1': 'Clothes - $10', '2': 'Caps - $5', '3': 'Shoes - $12'
 }
 
 current_place = 'House'
@@ -30,29 +45,43 @@ prompt()
 
 clear()
     
-print(f"Hello, {name},")
-print(f"You are in the {current_place}")
-print(f"Money: {money}\n\nFrom here you can choice your next move. you cann choose 'Mall', 'Univeristy' or to have a part-time job" )
+print(f"Hi {player['name']},\nMoney: ${player['money']}\n")
 
-directions = places[current_place]
+print(f'You probably wondering what you gonna do first, so your current place now is in your {current_place}')
+
 
 while True:
-        if directions:
-            print("You can go:")
-        for direction in directions:
-            print(f"- {direction} → {directions[direction]}")
-        else:
-         print("No available moves from here.")
-
-        move = input("\nWhere do you want to go? (or type quit): ").title()
-
-        # quit check first
-        if move == "Quit":
-            break
-
-        # check if move is valid
-        if move in directions:
-            current_place = directions[move]
-        else:
-            print("Invalid move!")
-            input("Press Enter...")
+    
+    directions = places[current_place]
+    
+    for direction in directions:
+        print(f"{direction} - {directions[direction]}")
+    
+    move = input(f'Which way you go?\n').title()
+    
+    #directions
+    if move in directions:
+        current_place = directions[move]
+        print(f'\nYou have travelled to the {current_place}\n')
+    else:
+        print('Invalid Commands')
+        
+        #from House to Mall or Mall to House
+    if current_place == 'Mall':
+        money -= 10 #cost of the transportation
+        print(f'You have cost $10 for the bus\ncurrent Money: {money}\n')
+        
+    elif current_place == 'House':
+         money -= 10 #cost of the transportation
+         print(f'You have cost $10 for the bus\ncurrent Money: {money}\n')
+        
+    else:
+        print('Invalid keywords')
+        
+    print({'-' * 27})    
+    print(f'Welcome to the {current_place}')
+    print('There are things a lot to buy here.')
+    
+    
+    
+    
