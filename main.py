@@ -1,8 +1,10 @@
 import os
+import random
 
-player = {"name": "", "money": 250, "skills": False, "Happines": 50, "stress": 10}
+player = {"name": "", "age": "", "money": 250, "skills": False, "Happines": 50, "stress": 10}
 
 player["name"] = input("Write your name\n")
+player["age"] = input("\nInput your Age\n")
 
 
 def prompt():
@@ -29,11 +31,11 @@ places = {
         "Quit": "Leaving the game",
         "South-South": "Funland Park"
     },
-    "Mall": {"North": "House", "South": "Ammusement Park"},
+    "Mall": {"North": "House", "South": "Funland Park"},
     "University": {"South": "House", "North": "Professional Work"},
     "Part-time Job": {"West": "House"},
     "Professional Work": {"South": "House"},
-    "Ammusement Park": {"North": "House"}
+    "Funland Park": {"North": "House"}
 }
 
 current_place = "House"
@@ -48,6 +50,32 @@ print(
     f"You probably wondering what you gonna do first, so your current place now is in your {current_place}"
 )
 
+#random event
+def randomEvent():
+    events = ['💰 You found $20 on the street!',
+             '🎉 You met an old friend and feel happier!',
+             '🍔 Someone bought you a free meal.',
+             '😓 You lost your wallet.']
+    
+    event = random.choice(events)
+    
+    print('\n==== Random Event ====\n')
+    print(event)
+    
+    input('Press Enter to Continue ....')
+    
+    if event == '💰 You found $20 on the street!':
+        player['money'] += 20
+        
+    elif event == '🎉 You met an old friend and feel happier!':
+        player['Happines'] += 35
+        
+    elif event == '🍔 Someone bought you a free meal.':
+        player['money'] -= 11
+        
+    elif event == '😓 You lost your wallet.':
+        player['money'] -= 17
+
 # Mall
 def mall():
         while True:
@@ -58,22 +86,25 @@ def mall():
             print("2. Shoes - $45")
             print("3. Caps - $22")
             print("4. Winter Jacket - $70")
-            print("5. Leave the Mall")
+            print("5. Leave the Mall\n\n")
+            print('Just write the number what you choose')
 
-            choice = input("\n\nWhat do you want to buy?\n\n")
+            choice = input("\n\nWhat do you want to buy?\n")
+            
+            
 
             if choice == "1":
                 player["money"] -= 30
-                print("You've purchased the clothes")
+                print("-- You've purchased the clothes 👕👖\n")
             elif choice == "2":
                 player["money"] -= 45
-                print("You've purchased the branded Shoes")
+                print("-- You've purchased the branded Shoes 👟\n")
             elif choice == "3":
                 player["money"] -= 22
-                print("You've purchased the Basketball Cap")
+                print("-- You've purchased the Basketball Cap 🧢🧢\n")
             elif choice == "4":
                 player["money"] -= 70
-                print("You've purchased the Winter Jacket")
+                print("-- You've purchased the Winter Jacket 🧥\n")
             elif choice == "5":
                 break
 
@@ -82,11 +113,11 @@ def mall():
     # part-time job
 def partime():
         while True:
-            print(f"\n{'🏍️' * 6} Grab Company  {'🏍️' * 6} \n")
+            print(f"\n{'🏍️' * 6}  Grab Company  {'🏍️' * 6} \n")
             print(
                 "Your wallet is running low, and bills won't pay themselves. To earn some extra cash, you've decided to work as a food delivery rider. Every delivery brings you one step closer to financial stability.\n"
             )
-            input("Press Enter to continue")
+            input("~ Press Enter to continue ....")
 
             deliver_food = input(
                 "A customer has placed a food order. Deliver it to earn money. Yes or No\n"
@@ -94,7 +125,7 @@ def partime():
 
             if deliver_food == "yes":
                 player["money"] += 30
-                print("\nSuccesfully delivered the food, you earned $30\n\n")
+                print("\n---- Succesfully delivered the food, you earned $30 ----\n\n")
             elif deliver_food == "no":
                 break
             else:
@@ -140,7 +171,7 @@ def professional_work():
                 break
 
 
-def ammusement_park():
+def funland_park():
     while True:
         print(f'{'🎡' * 5} Welcome to the Fun Land Ammusment Park {'🛝' * 5}\n\n')
         print('In ammusement park it will increase your Happines and decrease your stress\n')
@@ -178,7 +209,7 @@ def ammusement_park():
 while True:
     directions = places[current_place]
 
-    print(f"Welcome to your {current_place}")
+    print(f"Welcome to your {current_place}\n")
 
     for direction in directions:
         print(f"{direction} - {directions[direction]}")
@@ -194,6 +225,11 @@ while True:
     if move in directions:
         current_place = directions[move]
         print(f"\nYou have travelled to the {current_place}\n")
+        
+        #random events
+        if random.randint(1, 100) <= 30:
+            randomEvent()
+        
     else:
         print("Invalid Commands")
 
@@ -201,31 +237,37 @@ while True:
     # directions
     if current_place == "Mall":
         player["money"] -= 10  # cost of the transportation
-        print(f"You have cost $10 for the bus\ncurrent Money: {player['money']}\n")
+        print(f"\nYou have cost $10 for the bus\ncurrent Money: {player['money']}\n")
         mall()
     elif current_place == "Part-time Job":
         player["money"] -= 8
-        print(f"It cost $8 for the bus\nYour money is now {player['money']}")
+        print(f"\nIt cost $8 for the bus\nYour money is now {player['money']}")
         partime()
 
     elif current_place == "House":
         player["money"] -= 10  # cost of the transportation
-        print(f"You have cost $10 for the bus\ncurrent Money: {player['money']}\n")
+        print(f"\nYou have cost $10 for the bus\ncurrent Money: {player['money']}\n")
 
     elif current_place == "University":
         player["money"] -= 5
-        print(f"You rode the bus, it cost you $5")
+        print(f"\nYou rode the bus, it cost you $5")
         univeristy()
 
     elif current_place == "Professional Work":
         if player["skills"] == True:
             player["money"] -= 15
             print(
-                f"You've arrived to your work\nThe taxi fare is $15. Your money now is {player['money']}"
+                f"\nYou've arrived to your work\nThe taxi fare is $15. Your money now is {player['money']}"
             )
             professional_work()
+    
         else:
             print("--- You need to study first ---\n")
+            
+    elif current_place == 'Funland Park':
+        player['money'] -= 20
+        print(f"\nYou've arrived at the Funland Park, it cost $20 for fare\n")
+        funland_park()
             
     #end of the loop
     else:
