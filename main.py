@@ -62,8 +62,7 @@ def mall_random_events():
     
     print('\n==== What is Happening? ====\n')
     print(random_mall)
-   
-    input('Press Enter to Continue ....')
+    input('\nPress Enter to Continue ....\n')
     
     
     if random_mall == '🎟️ You won a raffle prize!':
@@ -98,7 +97,7 @@ def part_time_random_events():
     
     print('\n==== It happens all the time ====\n')
     print(partTime_random)
-    input('Press Enter to Continue ....')
+    input('\nPress Enter to Continue ....\n')
     
     
     if partTime_random == '💵 Customer tipped you $20.':
@@ -124,9 +123,104 @@ def part_time_random_events():
         Happiness: {player['Happines']}%
         Stress: {player['stress']}%
         \n""")
+    input('Press Enter to Continue ....')
     
     
+def prof_work_random():
+    work_random = ['⏰ Overtime increased your stress.',
+                   '🎉 Company team-building event.',
+                   '💼 Your boss praised your work.',
+                   '💰 Performance bonus received.']
+    
+    workRandom = random.choice(work_random)
+    
+    print('\n===== Sometimes this happened each company =====\n')
+    print(workRandom)
+    input('\nPress Enter to Continue ....\n')
 
+    if workRandom == '⏰ Overtime increased your stress.':
+        player['stress'] += 7
+        
+    elif workRandom == '🎉 Company team-building event.':
+        player['Happines'] += 10
+        
+    elif workRandom == '💼 Your boss praised your work.':
+        player['Happines'] += 5
+        
+    elif workRandom == '💰 Performance bonus received.':
+        player['Happines'] += 5
+        player['money'] += 50
+        
+    print(f"""\n
+        Money: ${player['money']}
+        Happiness: {player['Happines']}%
+        Stress: {player['stress']}%
+        \n""")
+
+def university_random():
+    univ_random = ['📚 Surprise quiz!',
+                  '🤝 You joined a study group.',
+                  '😴 You overslept and missed a class.',
+                  '📝 Your project received high marks.']
+
+    random_univ = random.choice(univ_random)
+    
+    print('=====  Random Situations in University  =====')
+    print(random_univ)
+    input('\nPress Enter to Continue ...\n')
+
+    
+    
+    if random_univ == '📚 Surprise quiz!':
+        player['stress'] += 5
+        
+    elif random_univ == '🤝 You joined a study group.':
+        player['Happines'] -= 5
+        
+    elif random_univ == '😴 You overslept and missed a class.':
+        player['stress'] += 5
+        
+    elif random_univ == '📝 Your project received high marks.':
+        player['Happines'] += 5
+        
+    print(f"""\n
+        Money: ${player['money']}
+        Happiness: {player['Happines']}%
+        Stress: {player['stress']}%
+        \n""")
+    
+def funland_random_events():
+    funland_random = ['🎢 Front-row roller coaster ride!',
+                      '🎯 You won a giant stuffed toy.',
+                      '🍦 Free ice cream!',
+                      '📸 You took memorable photos.']
+    
+    random_funland = random.choice(funland_random)
+    
+    print('===== Random Situations in Funland Park =====')
+    print(random_funland)
+    input('\nPress Enter to Continue ....\n')
+    
+    
+    if random_funland == '📸 You took memorable photos.':
+        player['Happines'] += 5
+        
+    elif random_funland == '🎢 Front-row roller coaster ride!':
+        player['Happines'] += 5
+        
+    elif random_funland == '🎯 You won a giant stuffed toy.':
+        player['Happines'] += 5
+        
+    elif random_funland == '🍦 Free ice cream!':
+         player['Happines'] += 5
+    
+    print(f"""\n
+        Money: ${player['money']}
+        Happiness: {player['Happines']}%
+        Stress: {player['stress']}%
+        \n""")
+        
+        
 #random event
 def randomEvent():
     events = ['💰 You found $20 on the street!',
@@ -140,7 +234,7 @@ def randomEvent():
     
     print('\n==== Random Event ====\n')
     print(event)
-    input('Press Enter to Continue ....')
+    input('\nPress Enter to Continue ....\n')
     
     
     if event == '💰 You found $20 on the street!':
@@ -274,7 +368,7 @@ def funland_park():
         print('4. Shooting Game')
         print('5. Leave')
         
-        choice = input('Choose: \n')
+        choice = input('Choose:\n')
         
         if choice == '5':
             break
@@ -282,21 +376,21 @@ def funland_park():
             player['money'] -= 5
             player['Happines'] += 10
             player['stress'] -= 5
-            print(f'Seeing the overlooking view it increase my Happiness\nHappines: {player['Happines']}%')
+            print(f'\nSeeing the overlooking view it increase my Happiness\n\nHappines: {player['Happines']}%')
         elif choice == '2':
             player['money'] -= 12
             player['stress'] += 5
-            print(f"I've been holding my breath during the ride it was amazing, I think my stress was increase\nStress: {player['stress']}%")
+            print(f"\nI've been holding my breath during the ride it was amazing, I think my stress was increase\n\nStress: {player['stress']}%")
         elif choice == '3':
             player['money'] -= 2
             player['Happines'] += 5
             player['stress'] -= 5
-            print(f'This Arcade its is better it chills me.\nHappiness: {player['Happines']}%\nStress: {player['stress']}%\n')
+            print(f'\nThis Arcade its is better it chills me.\n\nHappiness: {player['Happines']}%\nStress: {player['stress']}%\n')
         elif choice == '4':
             player['money'] -= 5
             player["Happines"] += 5
             player['stress'] -= 2
-            print(f'I am good in this shooting game\nHappiness: {player['Happines']}%\nStress: {player['stress']}%\n')
+            print(f'\nI am good in this shooting game\n\nHappiness: {player['Happines']}%\nStress: {player['stress']}%\n')
 
 # Main game
 while True:
@@ -320,17 +414,23 @@ while True:
         print(f"\nYou have travelled to the {current_place}\n")
         
         #random events
-        roll = random.randint(1, 100)
+        roll = random.randint(1, 50)
        
-        if roll <= 35:
+        if roll <= 15:
             randomEvent()
 
         elif roll <= 30:
             if current_place == 'Mall':
                 mall_random_events()
 
-        elif current_place == 'Part-time Job':
-            part_time_random_events()
+            elif current_place == 'Part-time Job':
+                part_time_random_events()
+            
+            elif current_place == 'Professional Work':
+                prof_work_random()
+                
+            elif current_place == 'University':
+                university_random()
             
         
     else:
