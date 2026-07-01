@@ -29,13 +29,15 @@ places = {
         "East": "Part-time Job",
         "North-North": "Professional Work",
         "Quit": "Leaving the game",
-        "South-South": "Funland Park"
+        "South-South": "Funland Park",
+        "West": "Red Lantern Club" 
     },
     "Mall": {"North": "House", "South": "Funland Park"},
     "University": {"South": "House", "North": "Professional Work"},
     "Part-time Job": {"West": "House"},
     "Professional Work": {"South": "House"},
-    "Funland Park": {"North": "House"}
+    "Funland Park": {"North": "House"},
+    "Red Lantern Club": {"East": "House"}
 }
 
 current_place = "House"
@@ -219,7 +221,9 @@ def funland_random_events():
         Happiness: {player['Happines']}%
         Stress: {player['stress']}%
         \n""")
-        
+      
+    
+ 
         
 #random event
 def randomEvent():
@@ -297,6 +301,142 @@ def mall():
 
     # print(f"You are now leaving, your current money is ${player['money']}")
 
+def stripped_club():
+     while True:
+        if player["money"] <= 0:
+            print('\n\n---- You have no more money, Get out of here ----\n\n')
+            break  
+        
+        print("""╔══════════════════════════════════════╗
+║          🔴 RED LANTERN CLUB 🔴      ║
+╚══════════════════════════════════════╝
+
+                    🏮                     🏮
+
+                        ┌─────────────────┐
+                        │   ★ OPEN ★      │
+                        │     NIGHT       │
+                        │      CLUB       │
+                        └─────────────────┘
+
+                    🏮                    🏮
+                """)
+        print("As the sun disappears beneath the city skyline, glowing red lanterns illuminate a quiet alley. At the end of the street stands the Red Lantern Club, a place known for its luxurious atmosphere, live entertainment, and unforgettable nights.Soft music echoes through the entrance while elegantly dressed guests enjoy expensive drinks and lively conversations. Some come here to celebrate, others to escape reality, and a few arrive hoping to make valuable connections. Tonight, the choice is yours. Will you relax, spend your hard-earned money, or discover what the night has in store?\n\n")
+         
+        print('1. Watch Live Show - $100')
+        print('2. Buy Cocktails - $50')
+        print('3. Tip the Performer')
+        print('4. Play High Stakes Poker')
+        print('5. Leave')
+        
+        choose = input('\nChoose what do you want, just write the numbers\n')
+        
+        
+        if choose == '1':
+            player["money"] -= 100
+            player["Happines"] += 10
+            player["stress"] -= 5
+            print(f"You settle into a comfortable seat and enjoy a professionally choreographed live performance. The dazzling     lights, music, and crowd create an unforgettable experience.\n\nMoney: ${player["money"]}\nHappiness: {player["Happines"]}%\n\n")
+            input('Press Enter to Continue....')
+            
+        elif choose == '2':
+            player["money"] -= 50
+            print('Enjoying the flavor of the Cocktail')
+            print(f'\nMoney: ${player["money"]}\n')
+            input('Press Enter to Continue....')
+
+            
+        elif choose == '3':
+            player["money"] -= 200
+            player["Happines"] += 20
+            print('You tip the perform - $200\n')
+            print(f'Money: ${player["money"]}\nHappiness: {player["Happines"]}%\n')
+            input('Press Enter to Continue....')
+
+            
+            
+        #Poker Game Gamble logic
+        elif choose == '4':
+            while True:
+             
+             poker_money = 500
+             
+             if player["money"] < poker_money:
+                 print(f"\n====== You need at least ${poker_money} to play poker ======\n")
+                 break
+                
+             print("""╔════════════════════════════════════╗
+║        ♠ HIGH-STAKES POKER ♥       ║
+╠════════════════════════════════════╣
+║   ♣ Chips stack the table. ♦       ║
+║   Every decision could change      ║
+║   your fortune... or lose it all.  ║
+╚════════════════════════════════════╝
+                    """)
+            
+             print("The dealer shuffles a fresh deck and slides two cards your way.")
+             print("The room falls silent as everyone studies their hand.")
+             print("A wealthy businessman raises the bet.")
+             print("All eyes turn toward you.\n")
+
+             print("What will you do?")
+             print("1. Fold")
+             print("2. Call")
+             print("3. Raise")
+             print('4. Leave')
+             
+             decide = input('\nChoose: ')
+                 
+             if decide == '4':
+                 break
+             
+             elif decide in ['1', '2', '3']:
+            
+                result = random.choices([ "big_win",
+                                        "win",
+                                        "break_even",
+                                        "lose",
+                                        "big_lose"],
+                                   weights=[5, 20, 15, 45, 15],
+                                   k=1)[0]
+            
+                if result == 'big_win':
+                    print('\n\n👑 Royal Flush! You won "$1,000!"')
+                    player['money'] += 1000
+                    print(f'\nMoney: ${player["money"]}')
+                    input('\n\nPress Enter to Continue....\n')
+                
+                elif result == 'win':
+                    print('\n\n🎉 You won the hand! +$500')
+                    player['money'] += 500
+                    print(f'\nMoney: ${player["money"]}')
+                    input('\n\nPress Enter to Continue....\n')
+
+                
+                elif result == 'break_even':
+                    print('\n\n🤝 Nobody gains or loses money')
+                    print(f'\nMoney: ${player["money"]}')
+                    input('\n\nPress Enter to Continue....\n')
+                
+                elif result == 'lose':
+                    print("\n\n💸 You lost the hand. -$150")
+                    player["money"] -= 150
+                    print(f'\nMoney: ${player["money"]}')
+                    input('\n\nPress Enter to Continue....\n')
+
+                 
+                elif result == "big_lose":
+                    print("\n\n💀 You went all in and lost! -$1,000")
+                    player["money"] -= 1000
+                    print(f'\nMoney: ${player["money"]}')
+                    input('\n\nPress Enter to Continue....\n')
+
+    
+        elif choose == '5':
+            break      
+        
+
+            
     # part-time job
 def partime():
         while True:
@@ -471,6 +611,11 @@ while True:
         player['money'] -= 20
         print(f"\nYou've arrived at the Funland Park, it cost $20 for fare\n")
         funland_park()
+        
+    elif current_place == 'Red Lantern Club':
+        player['money'] -= 20
+        print(f"\nYou've arrived at the Red Lantern Club, it cost $20 for fare\n")
+        stripped_club()
             
     #end of the loop
     else:
