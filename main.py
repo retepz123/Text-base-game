@@ -1,11 +1,9 @@
 import os
 import random
 
-player = {"name": "", "age": "", "money": 250, "skills": False, "Happines": 50, "stress": 10}
+player = {"name": "","money": 100, "skills": False, "Happines": 50, "stress": 10}
 
 player["name"] = input("Write your name\n")
-player["age"] = input("\nInput your Age\n")
-
 
 def prompt():
     print(
@@ -32,12 +30,12 @@ places = {
         "South-South": "Funland Park",
         "West": "Red Lantern Club" 
     },
-    "Mall": {"North": "House", "South": "Funland Park"},
-    "University": {"South": "House", "North": "Professional Work"},
-    "Part-time Job": {"West": "House"},
-    "Professional Work": {"South": "House"},
-    "Funland Park": {"North": "House"},
-    "Red Lantern Club": {"East": "House"}
+    "Mall": {"North": "House", "South": "Funland Park", "West": "Red Lantern Club", "North-North": "Professional Work"},
+    "University": {"South": "House", "North": "Professional Work", "East": "Part-time Job"},
+    "Part-time Job": {"West": "House", "North": "University"},
+    "Professional Work": {"South": "House", "West": "Red Lantern Club", "South-South": "Mall"},
+    "Funland Park": {"North": "House", "East": "Part-time Job", "West": "Red Lantern Club"},
+    "Red Lantern Club": {"East": "House", "South": "Funland Park", "North-East": "Professional Work"}
 }
 
 current_place = "House"
@@ -47,9 +45,9 @@ prompt()
 
 clear()
 
-print(f"Hi {player['name']},\nMoney: ${player['money']}\nHappiness: {player['Happines']}%\nStress: {player['stress']}%\n\n")
+print(f"Hi {player['name']},\nMoney: ${player['money']}\nHappiness: {player['Happines']}%\nStress: {player['stress']}%\nSkills: {player["skills"]}\n")
 print(
-    f"You probably wondering what you gonna do first, so your current place now is in your {current_place}"
+    f"You probably wondering what you gonna do first, so your current place now is in your {current_place}\n"
 )
 
 
@@ -303,7 +301,9 @@ def mall():
 
 def stripped_club():
      while True:
-        if player["money"] <= 0:
+        entrance_money = 100
+         
+        if player["money"] < entrance_money:
             print('\n\n---- You have no more money, Get out of here ----\n\n')
             break  
         
@@ -331,27 +331,83 @@ def stripped_club():
         
         choose = input('\nChoose what do you want, just write the numbers\n')
         
-        
+      
         if choose == '1':
-            player["money"] -= 100
-            player["Happines"] += 10
-            player["stress"] -= 5
-            print(f"You settle into a comfortable seat and enjoy a professionally choreographed live performance. The dazzling     lights, music, and crowd create an unforgettable experience.\n\nMoney: ${player["money"]}\nHappiness: {player["Happines"]}%\n\n")
-            input('Press Enter to Continue....')
+            if player["money"] < 150:
+                print('\n$100 is the minimuim in here\n')
+                input('Press Enter to Continue....\n')
+
+            else:
+                player["money"] -= 100
+                player["Happines"] += 10
+                player["stress"] -= 5
+            
+                print(r"""╔══════════════════════════════════════════════════════════════╗
+║                  ✦ WATCH LIVE SHOW ✦                        ║
+╠══════════════════════════════════════════════════════════════╣
+║                                                              ║
+║        *         ✨      SPOTLIGHTS ON      ✨         *      ║
+║                                                              ║
+║               \O/                                            ║
+║                |        ♪ ♫ ♪ ♫ ♪                           ║
+║               / \                                           ║
+║                                                              ║
+║      👥  👥  👥  👥  👥  👥  👥  👥                         ║
+║______________________________________________________________║
+║                                                              ║
+║  The lights dim as the music begins to play.                ║
+║  The crowd erupts in cheers while dazzling performers       ║
+║  take the stage under flashing neon lights.                 ║
+║                                                              ║
+║  You sit back with a drink, enjoying the atmosphere         ║
+║  and the unforgettable performance.                         ║
+║                                                              ║
+╠══════════════════════════════════════════════════════════════╣
+║      💸 Cost : $100                                         ║
+║      😊 Happiness : +10                                     ║
+╚══════════════════════════════════════════════════════════════╝""")
+                print(f'\nMoney: {player["money"]}\nHappiness: {player["Happines"]}%\n')
+                input('Press Enter to Continue....\n')
             
         elif choose == '2':
             player["money"] -= 50
-            print('Enjoying the flavor of the Cocktail')
+            print(r"""
+╔════════════════════════════════════════════════════╗
+║              🍸 BUY COCKTAILS 🍸                  ║
+╠════════════════════════════════════════════════════╣
+║                                                    ║
+║            .-=========-.                           ║
+║           |  \     /  |                           ║
+║           |   \___/   |                           ║
+║           |   (• •)   |                           ║
+║           |    \_/    |                           ║
+║           '-----------'                           ║
+║                                                    ║
+║  The bartender smiles as colorful cocktails        ║
+║  are lined up across the polished counter.         ║
+║                                                    ║
+║  You order a refreshing drink and take a           ║
+║  moment to relax while enjoying the music.         ║
+║                                                    ║
+╠════════════════════════════════════════════════════╣
+║               💸 Cost: $50                   ║
+╚════════════════════════════════════════════════════╝
+""")
             print(f'\nMoney: ${player["money"]}\n')
             input('Press Enter to Continue....')
 
             
         elif choose == '3':
-            player["money"] -= 200
-            player["Happines"] += 20
-            print('You tip the perform - $200\n')
-            print(f'Money: ${player["money"]}\nHappiness: {player["Happines"]}%\n')
-            input('Press Enter to Continue....')
+            if player["money"] < 200:
+                print("\nYou don't have enough money to tip\n")
+                input('Press Enter to Continue....\n')
+
+            else: 
+                player["money"] -= 200
+                player["Happines"] += 20
+                print('You tip the perform - $200\n')
+                print(f'Money: ${player["money"]}\nHappiness: {player["Happines"]}%\n')
+                input('Press Enter to Continue....')
 
             
             
@@ -452,7 +508,10 @@ def partime():
 
             if deliver_food == "yes":
                 player["money"] += 30
-                print("\n---- Succesfully delivered the food, you earned $30 ----\n\n")
+                print("\n---- Succesfully delivered the food, you earned $30 ----\n")
+                print(f"Money: ${player["money"]}\n\n")
+                input('🛵🛵🛵🛵 Press Enter...\n')
+
             elif deliver_food == "no":
                 break
             else:
@@ -476,7 +535,7 @@ def univeristy():
             player["skills"] = True
 
         else:
-            print("----- You are done here. -----")
+            print("\n----- You already Graduate in Univeristy -----\n")
 
     # professional work
 def professional_work():
@@ -493,7 +552,10 @@ def professional_work():
 
             if start_work == "yes":
                 player["money"] += 100
-                print("\n---You have earned $100---\n\n")
+                print("\n---You have earned $100---\n")
+                print(f"Money: ${player["money"]}\n\n")
+                input('💻💻💼💼 Press Enter....\n')
+                
             elif start_work == "no":
                 break
 
@@ -593,14 +655,14 @@ while True:
 
     elif current_place == "University":
         player["money"] -= 5
-        print(f"\nYou rode the bus, it cost you $5")
+        print(f"\nYou rode the bus, it cost you $5\n")
         univeristy()
 
     elif current_place == "Professional Work":
         if player["skills"] == True:
             player["money"] -= 15
             print(
-                f"\nYou've arrived to your work\nThe taxi fare is $15. Your money now is {player['money']}"
+                f"\nYou've arrived to your work\nThe taxi fare is $15. Your money now is {player['money']}\n"
             )
             professional_work()
     
