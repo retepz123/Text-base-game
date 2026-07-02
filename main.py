@@ -296,6 +296,8 @@ def mall():
                 print("-- You've purchased the Winter Jacket 🧥\n")
             elif choice == "5":
                 break
+            
+            input('Press Enter .....')
 
     # print(f"You are now leaving, your current money is ${player['money']}")
 
@@ -419,6 +421,7 @@ def stripped_club():
              
              if player["money"] < poker_money:
                  print(f"\n====== You need at least ${poker_money} to play poker ======\n")
+                 input('Press Enter ....')
                  break
                 
              print("""╔════════════════════════════════════╗
@@ -593,6 +596,8 @@ def funland_park():
             player["Happines"] += 5
             player['stress'] -= 2
             print(f'\nI am good in this shooting game\n\nHappiness: {player['Happines']}%\nStress: {player['stress']}%\n')
+            
+        input('Press Enter ...')
 
 # Main game
 while True:
