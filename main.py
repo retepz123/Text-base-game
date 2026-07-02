@@ -684,6 +684,5 @@ while True:
         print(f"\nYou've arrived at the Red Lantern Club, it cost $20 for fare\n")
         stripped_club()
             
-    #end of the loop
     else:
         print("Invalid keywords")
